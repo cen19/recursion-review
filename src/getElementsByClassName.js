@@ -13,36 +13,26 @@
 //   });
 //   console.log(output);
 // };
-
 // // use document.body
 // // use element.childNodes;
 // // use element.classList;
 
 
-var getElementsByClassName = function(className) {
-  var nodes = [];
+const getElementsByClassName = function(className, node) {
+  let nodes = [];
+
+  node = node || document.body;
+
+  //split classList if multiple
+  const parts = node.classList.value.split(' ');
+  if (parts.indexOf(className) >= 0) {
+    nodes.push(node);
+  }
   
-  var searchNodes = function(node) {
-    // take into account classNames with multiple  names
-    var parts = node.classList.value.split(' ');
-    // parts is an array
-    // names are split into an array now
-      // need to access and see if they exist
-    if (parts.indexOf(className) >= 0) {
-      // if it exists, push the entire node, not just the part
-      nodes.push(node);
-    }
-
-
-    // now iterate through children and recursion
-    for (var i = 0; i < node.children.length; i++) {
-      searchNodes(node.children[i]);
-      // when it reaches recursion, it will keep looking for the children and children's children
-    }
-  };
-
-  // call the first ever searchNodes on the more 'parent' node
-  searchNodes(document.body);
+  // iterate through children and recurse through descendants
+  for ( let i = 0; i < node.children.length; i++) {
+    const results = getElementsByClassName(className, node.children[i]);
+    nodes = nodes.concat(results);
+  }
   return nodes;
-
 };
