@@ -3,7 +3,10 @@
 
 // but you're not, so you'll write it from scratch:
 var parseJSON = function(json) {
-
-
-  
+  if (json[0] === '[') {
+    return [];
+  }
+  if (json[0] === '{') {
+    return [];
+  }
 };
