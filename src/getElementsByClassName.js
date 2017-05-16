@@ -31,7 +31,9 @@ const getElementsByClassName = function(className, node) {
   
   // iterate through children and recurse through descendants
   for ( let i = 0; i < node.children.length; i++) {
+    // store results of current parent-child 'branch'?
     const results = getElementsByClassName(className, node.children[i]);
+    // change nodes to concat existing node with results
     nodes = nodes.concat(results);
   }
   return nodes;
